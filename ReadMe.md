@@ -16,6 +16,9 @@ A Welcome WeChat QR code for Princeton Christian Church => [PCC](https://english
 
 TFCESC=Threefold Cord East Single Camp
 
+#### [Newscamp2025-WisdomGroup.jpg](https://aklakl.github.io/PCC/index.html?qr=Newscamp2025-WisdomGroup.jpg)
+Newscamp2025-WisdomGroup
+
 ## Archived
 
 This folder contains archived QR codes.

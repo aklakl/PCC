@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Join</title>
+    <style>
+        /* CSS reset and basic styling */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #f0f2f5; /* Light gray background */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Hide scrollbars */
+        }
+
+        /* Container for the card */
+        .container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+            width: 400px;
+        }
+
+        /* Title styling */
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+
+        /* Image container to keep size consistent */
+        .image-box {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px; /* Prevent collapse before image loads */
+        }
+
+        /* Image styling */
+        #qr-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: none; /* Hidden by default, shown via JS on load */
+        }
+
+        /* Error message styling */
+        #error-msg {
+            color: #999;
+            font-size: 14px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="title">Welcome to join<br>Scan the QR Code</div>
+        
+        <div class="image-box">
+            <img id="qr-image" alt="QR Code" />
+            <p id="error-msg">Loading or Image not found...</p>
+        </div>
+    </div>
+
+    <script>
+        // 1. Get parameters from the URL
+        const params = new URLSearchParams(window.location.search);
+        
+        // 2. Get the value of the 'qr' parameter (e.g., PCC-princeton-group.png)
+        const qrFilename = params.get('qr');
+        const titleElement = document.querySelector('.title');
+
+        // Set default title
+        titleElement.innerHTML = 'Welcome to join wechat group<br> Scan the follwing QR Code,Please';
+
+        if (qrFilename) {
+            if (qrFilename === 'PCC-princeton-group.png') {
+                titleElement.textContent = 'Welcome to join Princeton Christian Church 2025';
+            } else if (qrFilename === 'Newscamp2025-WisdomGroup.jpg') {
+                titleElement.textContent = 'Welcome to join Newscamp 2025 Wisdom Group';
+            } else {
+                // Use qrFilename for the title, and replace hyphens with spaces
+                const formattedTitle = qrFilename.replace(/\..+$/, '').replace(/-/g, ' ');
+                titleElement.innerHTML = formattedTitle;
+            }
+        }
+        
+        const imgElement = document.getElementById('qr-image');
+        const errorMsg = document.getElementById('error-msg');
+
+        // 3. Logic handling
+        if (qrFilename) {
+            // If parameter exists, set the image source
+            // Note: Assumes the image is in the same root directory
+            imgElement.src = qrFilename;
+            
+            // Handle successful image load
+            imgElement.onload = function() {
+                imgElement.style.display = 'block';
+                errorMsg.style.display = 'none';
+            };
+
+            // Handle image load failure (e.g., wrong filename or 404)
+            imgElement.onerror = function() {
+                errorMsg.innerText = "Image not found: " + qrFilename;
+                errorMsg.style.display = 'block';
+                imgElement.style.display = 'none';
+            };
+        } else {
+            // If no parameter is provided, load a default image
+            // Defaulting to PCC-princeton-group.png as per your request
+            // imgElement.src = 'PCC-princeton-group.png'; 
+            imgElement.src = 'Newscamp2025-WisdomGroup.jpg';
+
+            imgElement.onload = function() {
+                imgElement.style.display = 'block';
+            };
+            
+            // Optional: Handle error for default image
+            imgElement.onerror = function() {
+                errorMsg.innerText = "Default image not found.";
+                errorMsg.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
