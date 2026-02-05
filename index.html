@@ -89,7 +89,9 @@
             if (qrFilename === 'PCC-princeton-group.png') {
                 titleElement.textContent = 'Welcome to join Princeton Christian Church 2025';
             } else if (qrFilename === 'Newscamp2025-WisdomGroup.jpg') {
-                titleElement.textContent = 'Welcome to join Newscamp 2025 Wisdom Group';
+                titleElement.textContent = 'Welcome to join Newscamp 2025 Wisdom Group';    
+            } else if (qrFilename === 'PCC-lunar-new-year-group.jpg') {
+                titleElement.textContent = 'Welcome to join PCC Lunar New Year Group';
             } else {
                 // Use qrFilename for the title, and replace hyphens with spaces
                 const formattedTitle = qrFilename.replace(/\..+$/, '').replace(/-/g, ' ');
